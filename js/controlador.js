@@ -15,13 +15,13 @@ var categorias = [];
 
 
     var contador = 1;
-    for (let i = 0; i < 2; i++) { //Generar 5 categorias
+    for (let i = 0; i < 5; i++) { //Generar 5 categorias
         let categoria = {
             nombreCategoria: "Categoria " + i,
             descripcion: textosDePrueba[Math.floor(Math.random() * (5 - 1))],
             aplicaciones: []
         };
-        for (let j = 0; j < 3; j++) { //Generar 10 apps por categoria
+        for (let j = 0; j < 10; j++) { //Generar 10 apps por categoria
             let aplicacion = {
                 codigo: contador,
                 nombre: "App " + contador,
@@ -78,11 +78,11 @@ for (i = 0; i < categorias.length; i++) {
     };
 */
 
-
-function seleccionarCategoria(valor) {
+/*
+function seleccionarCategoria() {
     categorias.forEach(function(categoria, i) {
         seleccionar += `<option value="${i}">${categoria.nombreCategoria}</option>`;
-        generrarApp(categoria[valor]);
+        // generrarApp(categoria);
         //categoria.addEventListener('change', generrarApp(categoria));
 
     });
@@ -93,6 +93,49 @@ function seleccionarCategoria(valor) {
     // document.addEventListener('DOMContentLoaded', sC);
     // document.addEventListener('change', elementos.nombreCategoria, true);
 };
+seleccionarCategoria();
+*/
+// <select id="filter-list" name="filter" onchange="filterChanged();"></select>
+// categoria.addEventListener('change', seleccionarCategoria);
+/*
+window.onload = function() {
+    let categoria = document.getElementById('categoria');
+    categoria.onchange = function() {
+        // The code of your function
+        let seleccionar;
+        categorias.forEach(function(categoria, i) {
+            seleccionar += `<option value="${i}">${categoria.nombreCategoria}</option>`;
+            generrarApp(categoria);
+        });
+        categoria.innerHTML = selecionar;
+    }
+}*/
+/*
+function seleccionarCategoria() {
+    let seleccionar;
+    categorias.forEach(function(categoria) {
+        seleccionar += `<option>${categoria.nombreCategoria}</option>`;
+        // generrarApp(categoria);
+    });
+    document.getElementById('categoria').innerHTML = seleccionar;
+
+}
+document.getElementById('categoria').addEventListener('change', seleccionarCategoria);
+*/
+document.getElementById('categoria').addEventListener('change', seleccionarCategoria());
+
+function seleccionarCategoria(valor) {
+    let seleccionar;
+    categorias.forEach(function(categoria, i) {
+        seleccionar += `<option value=${i}>${categoria.nombreCategoria}</option>`;
+    });
+    document.getElementById('categoria').innerHTML = seleccionar;
+    console.log('Los valores son', categorias[valor].nombreCategoria);
+
+    generrarApp(categorias[valor]);
+
+}
+// seleccionarCategoria();
 
 /*function start() {
     document.addEventListener('DOMContentLoaded', sC, true);
@@ -138,32 +181,36 @@ function generrarApp(categoria) {
              estrellas += '<i class="far fa-star" ></i>';
          }*/
     //categorias.forEach(function(categoria) {
+    let magic;
     categoria.aplicaciones.forEach(function(aplicacion, i) {
-            let estrellas = '';
-            for (let i = 0; i < aplicacion.calificacion; i++) {
-                estrellas += '<i class="fas fa-star"></i>';
-            }
-            for (let i = 0; i < 5 - aplicacion.calificacion; i++) {
-                estrellas += '<i class="far fa-star" ></i>';
-            }
-            document.getElementById('aplicaciones').innerHTML +=
-                `<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                    <div class="card">
-                        <img src="${aplicacion.icono}" class="card-img-top " alt="... ">
-                        <div class="card-body">
-                            <h5 class="card-title ">${aplicacion.nombre}</h5>
-                            <p class="card-text ">${aplicacion.desarrollador} </p>
-                            <div class="my-2">
-                                ${estrellas}
-                            </div>
-                            <div>
-                                                    
-                            </div>
+
+        let estrellas = '';
+        for (let i = 0; i < aplicacion.calificacion; i++) {
+            estrellas += '<i class="fas fa-star"></i>';
+        }
+        for (let i = 0; i < 5 - aplicacion.calificacion; i++) {
+            estrellas += '<i class="far fa-star" ></i>';
+        }
+        magic +=
+            `<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                <div class="card">
+                    <img src="${aplicacion.icono}" class="card-img-top " alt="... ">
+                    <div class="card-body">
+                        <h5 class="card-title ">${aplicacion.nombre}</h5>
+                        <p class="card-text ">${aplicacion.desarrollador} </p>
+                        <div class="my-2">
+                            ${estrellas}
+                        </div>
+                        <div>
                         </div>
                     </div>
-                </div>`;
-        })
-        // })
+                </div>
+            </div>`;
+
+    })
+    document.getElementById('aplicaciones').innerHTML = magic;
+
+    // })
 }
 // }
 
