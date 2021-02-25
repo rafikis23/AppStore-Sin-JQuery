@@ -41,24 +41,129 @@
     <main role="main" class="container">
 
         <div class="starter-template">
+            <!-- Boton para una nueva aplicacion-->
+            <div class="row">
+                <div class="col-12 align-content-start">
+                    <button type="button" class="btn btn-outline-warning my-2 my-sm-0 btn-lg btn-block" data-toggle="modal" data-target="#modal-nueva-app" style="font-size: 1.30rem;">Nueva aplicación <i class="fas fa-plus"></i></button>
+                </div>
+            </div>
             <!--Boton para seleciconar app-->
             <div class="row">
 
-                <div class="col-12">
-                    <select onchange="seleccionarCategoria(this.value)" class="form-control" id="categoria" style="font-size: 1.9rem;">
-                                <option >- Seleccione una categoria -</option>
+                <div class="col-12 my-4">
+                    <select onchange="seleccionarCategoria();" class="form-control" id="categoria" style="font-size: 1.9rem;">
+                                <option value="">- Seleccione una categoria -</option>
                             </select>
                     <br>
                 </div>
             </div>
             <!--Card for Apps-->
             <div class="row" id="aplicaciones">
-
             </div>
 
     </main>
     <!-- /.container -->
+    <!--Modal para mostrar detalle-->
+    <div class="modal fade" id="modal-detalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <img id="imagen-app" class="img-fluid">
+                        </div>
+                        <div class="col-8">
+                            <h2 id="nombre-app"></h2>
+                            <div class="texto-desarrollador" id="desarrollador-app"></div>
+                            <div id="descripcion-app"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div id="estrellas-app" class="text-center">
+                    </div>
+                    <hr>
+                    <!--Carousel-->
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="img/app-screenshots/1.webp" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="img/app-screenshots/2.webp" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="img/app-screenshots/3.webp" class="d-block w-100" alt="...">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                    <!--Fin Carousel-->
+                    <hr>
+                    <div class="row comentario">
+                        <div class="col-2">
+                            <img src="img/user.webp" class="rounded-circle">
+                        </div>
+                        <div class="col-10">
+                            <b>Usuario 1</b>
+                            <p class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis repellendus quidem quod molestiae ipsum accusamus architecto non sed delectus fuga.</p>
+                        </div>
+                    </div>
+                    <!--Formulario nuevo comentario-->
+                    <div class="row">
+                        <div class="col-10">
+                            <input class="form-control" type="text" id="nuevoComentario" placeholder="Nuevo comentario">
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="btn btn-outline-warning"><i class="fa fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-outline-warning" data-dismiss="modal">Instalar</button>
 
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal nueva aplicacion-->
+    <div class="modal fade" id="modal-nueva-app" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <img id="formImagenApp" class="img-fluid">
+                        </div>
+                        <div class="col-8">
+                            <form id="form-app">
+                                Icono: <select class="form-control" name="icono" id="icono" onchange="visualizarImagen()"></select>
+                                <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre aplicación">
+                                <textarea class="form-control" type="text" name="descripcion" id="descripcion" placeholder="Descripción"></textarea>
+                                <input class="form-control" type="text" name="desarrollador" id="desarrollador" placeholder="Desarrollador">
+                                <input class="form-control" type="text" name="descargas" id="descargas" placeholder="Descargas">
+                                <input class="form-control" type="number" max="5" min="1" name="calificacion" id="calificacion" placeholder="Calificacion">
+                            </form>
+                        </div>
+                    </div>
+                    <div id="estrellas-app" class="text-center">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-nueva-app" onclick=" guardarApp() ">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

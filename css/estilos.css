@@ -5,3 +5,13 @@
 .bg-dark {
     background-color: black !important;
 }
+
+.btn-outline-warning:hover {
+    color: black !important;
+}
+
+.card-shadow:hover {
+    background-color: #ffc107 !important;
+    color: whitesmoke !important;
+    cursor: pointer !important;
+}
