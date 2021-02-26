@@ -18,6 +18,8 @@
     <!--Fonts Google-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Exo+2&display=swap" rel="stylesheet">
+
+
 </head>
 
 <body>
@@ -44,7 +46,7 @@
             <!-- Boton para una nueva aplicacion-->
             <div class="row">
                 <div class="col-12 align-content-start">
-                    <button type="button" class="btn btn-outline-warning my-2 my-sm-0 btn-lg btn-block" data-toggle="modal" data-target="#modal-nueva-app" style="font-size: 1.30rem;">Nueva aplicación <i class="fas fa-plus"></i></button>
+                    <button type="button" class="btn btn-outline-warning my-2 my-sm-0 btn-lg btn-block" onclick="nuevaApp();" data-toggle="modal" data-target="#modal-nueva-app" style="font-size: 1.30rem;">Nueva aplicación <i class="fas fa-plus"></i></button>
                 </div>
             </div>
             <!--Boton para seleciconar app-->
@@ -145,7 +147,7 @@
                         </div>
                         <div class="col-8">
                             <form id="form-app">
-                                Icono: <select class="form-control" name="icono" id="icono" onchange="visualizarImagen()"></select>
+                                Icono: <select onchange=" verImagen();" class="form-control" name="icono" id="icono"></select>
                                 <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre aplicación">
                                 <textarea class="form-control" type="text" name="descripcion" id="descripcion" placeholder="Descripción"></textarea>
                                 <input class="form-control" type="text" name="desarrollador" id="desarrollador" placeholder="Desarrollador">
@@ -157,9 +159,12 @@
                     <div id="estrellas-app" class="text-center">
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-nueva-app" onclick=" guardarApp() ">Guardar</button>
+                <div class="modal-footer" id="pied-modal">
+
+
+                    <!--
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-nueva-app" onclick="guardarApp(i)">Guardar</button>
+                    -->
                 </div>
             </div>
         </div>

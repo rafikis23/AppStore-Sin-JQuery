@@ -21,7 +21,7 @@ var categorias = [];
             descripcion: textosDePrueba[Math.floor(Math.random() * (5 - 1))],
             aplicaciones: []
         };
-        for (let j = 0; j < 10; j++) { //Generar 10 apps por categoria
+        for (let j = 0; j < 7; j++) { //Generar 10 apps por categoria
             let aplicacion = {
                 codigo: contador,
                 nombre: "App " + contador,
@@ -61,6 +61,28 @@ for (let i = 0; i < localStorage.length; i++) {
     document.getElementById('categoria').innerHTML +=
         `<option value="${localStorage.key(i)}">${categoria.nombreCategoria}</option>`;
 }
+for (let i = 1; i <= 50; i++) {
+    document.getElementById('icono').innerHTML +=
+        `<option value="img/app-icons/${i}.webp">Imagen ${i}</option>`;
+    document.getElementById('icono').value = null;
+}
+if (document.getElementById('categoria').value = null) {
+
+}
+
+
+document.getElementById('icono').addEventListener('change', verImagen());
+
+function verImagen() {
+    if (document.getElementById('icono').value != null) {
+        document.getElementById('formImagenApp').setAttribute('src', document.getElementById('icono').value);
+
+    } else {
+        document.getElementById('formImagenApp').setAttribute('src', 'img/user.webp');
+
+    }
+}
+
 
 document.getElementById('categoria').addEventListener('change', seleccionarCategoria());
 
@@ -85,16 +107,16 @@ function generrarApp(categoria) {
         }
         magic +=
             `<div class="col-lg-2 col-md-3 col-6">
-                <div class="card-shadow" onclick="detalleApp(${aplicacion.codigo})">
-                    <img src="${aplicacion.icono}" class="card-img-top " alt="... ">
+                <div class="card-shadow" >
+                    <img src="${aplicacion.icono}" onclick="detalleApp(${aplicacion.codigo})"class="card-img-top " alt="... ">
                     <div class="card-body">
                         <h5 class="card-title ">${aplicacion.nombre}</h5>
                         <p class="card-text ">${aplicacion.desarrollador} </p>
                         <div class="my-2">
                             ${estrellas}
-                            <button class="btn btn-outline-danger" onclick="eliminarApp(${i})"><i class="fas fa-trash"></i></button>
                         </div>
-                        <div>
+                        <div class="my-2">
+                            <button class="btn btn-outline-danger" onclick="eliminarApp(${i})"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                 </div>
@@ -106,6 +128,12 @@ function generrarApp(categoria) {
 
 function eliminarApp(indice) {
     console.log('La app a eliminar es:', indice);
+    let categoria = JSON.parse(localStorage.getItem(document.getElementById('categoria').value));
+    let codigo = document.getElementById('categoria').value;
+    localStorage.setItem(codigo, JSON.stringify(categoria));
+    categoria.aplicaciones.splice(indice, 1);
+    generrarApp(categoria);
+
 }
 
 function detalleApp(codigoAppSeleccionada) {
@@ -139,71 +167,42 @@ function detalleApp(codigoAppSeleccionada) {
     }
 
 }
-// Funcion para las opciones de imagenes en una nueva app
 
-function mmostrar() {
-    let imagen;
-    for (let i = 1; i <= 50; i++) {
-        imagen += `<option value="img/app-icons/${i}.webp">${i}.webp</option>`;
-    }
-    console.log('Las aplicaciones', imagen);
-    document.getElementById('icono').innerHTML = imagen;
-    document.getElementById('icono').value = null;
-};
-
-document.getElementById('icono').addEventListener('change', mmostrar());
-
-
-
-/*
-generarImagen((JSON.parse(localStorage.getItem(document.getElementById('categoria').value))));
-
-function generarImagen(categoria) {
-    let imagen;
-    categoria.aplicaciones.forEach(function(app, i) {
-        imagen += `<option value="${app.icono}">${i}.webp</option>`
-    });
-    document.getElementById('icono').innerHTML = imagen;
-}
-// Funcion para visualizar la imagen al momento de una guardar una nueva aplicacion
-document.getElementById('icono').addEventListener('change', visualizarImagen());
-// Para recorrer las imagenes guardadas en localStorage
-
-function visualizarImagen() {
-    if (document.getElementById('icono').value != "")
-        document.getElementById('formImagenApp').setAttribute('src', document.getElementById('icono').value)
-    else
-        document.getElementById('formImagenApp').setAttribute('src', 'img/user.webp');
+function nuevaApp() {
+    $('#modal-nueva-app').modal('show');
+    let codigo = document.getElementById('categoria').value;
+    console.log('Se abrio la modal para new app');
+    let muestra;
+    muestra =
+        `<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-warning"  onclick="guardarApp(${codigo});">Guardar</button>`;
+    document.getElementById('pied-modal').innerHTML = muestra;
 }
 
+function guardarApp(categoriaSeleccionada) {
 
-function guardarApp() {
-    let categoria = JSON.parse(localStorage.getItem('categorias'));
+    let categoria = JSON.parse(localStorage.getItem(document.getElementById('categoria').value));
+
+    console.log('La app se guardara en la', categoriaSeleccionada);
+
     const app = {
-        nombre: document.getElementById('nombre').value,
-        descripcion: document.getElementById('descripcion').value,
-        icono: document.getElementById('icono').value,
-        calificacion: document.getElementById('calificacion').value,
-        descargas: document.getElementById('descargas').value,
-        desarrollador: document.getElementById('desarrollador').value,
 
-    }
 
-    console.log('Se guardo la aplicacion')
-}
-/* 
+            nombre: document.getElementById('nombre').value,
+            descripcion: document.getElementById('descripcion').value,
+            icono: document.getElementById('icono').value,
+            calificacion: document.getElementById('calificacion').value,
+            descargas: document.getElementById('descargas').value,
+            desarrollador: document.getElementById('desarrollador').value,
 
-function guardarApp() {
-    const app = {
-        nombre: document.getElementById('nombre').value,
-        descripcion: document.getElementById('descripcion').value,
-        icono: document.getElementById('icono').value,
-        calificacion: document.getElementById('calificacion').value,
-        descargas: document.getElementById('descargas').value,
-        desarrollador: document.getElementById('desarrollador').value
-    }
-    console.log(app);
+        }
+        // console.log('Que devuelve ', category.aplicaciones);
+    categoria.aplicaciones.push(app);
+    localStorage.setItem(categoriaSeleccionada, JSON.stringify(categoria));
+    generrarApp(categoria);
+
+
+
     $('#modal-nueva-app').modal('hide');
 
 }
-*/
